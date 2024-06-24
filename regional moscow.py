@@ -27,7 +27,8 @@ def main() -> None:
         if not pd.isna(item[0]) and pd.isna(item[1]) and pd.isna(item[2]):
             result.append(item[0].strip())
         elif 'BA' in item[0]:
-            result.append(f'{item[1]} {item[2]}')
+            item[0] = item[0].strip('BA').strip(' ')
+            result.append(f'{item[0]} {item[2]}')
         else:
             result.append(f'{item[0]} {item[2]}')
 
@@ -120,7 +121,7 @@ def main() -> None:
 
     # Process TVR columns
     tvr_df = df.loc[:, [i for i in df.columns if ('TVR' in i and 'Stand' not in i)]]
-    tvr_df.columns = [i.replace(' Reg. TVR', '') for i in tvr_df.columns]
+    tvr_df.columns = [i.replace(' TVR', '') for i in tvr_df.columns]
     tvr_df['Аудитория'] = df['Аудитория']
     tvr_df['минуты'] = 0
     df['Reg. Sales TVR'] = tvr_df.apply(lambda row: row[row['Аудитория']], axis=1)
@@ -128,15 +129,15 @@ def main() -> None:
 
     # Process Stand TVR columns
     stand_tvr_df = df.loc[:, [i for i in df.columns if ('TVR' in i and 'Stand' in i)]]
-    stand_tvr_df.columns = [i.replace(' Reg. Stand. TVR (20)', '') for i in stand_tvr_df.columns]
+    stand_tvr_df.columns = [i.replace(' Stand. TVR (20)', '') for i in stand_tvr_df.columns]
     stand_tvr_df['Аудитория'] = df['Аудитория']
     stand_tvr_df['минуты'] = 0
     df['Reg. Stand TVR'] = stand_tvr_df.apply(lambda row: row[row['Аудитория']], axis=1)
     stand_tvr_df = stand_tvr_df.drop(['Аудитория', 'минуты'], axis='columns')
 
     # Set values for 'Reg. TVR All 18+' and 'Reg. Stand. TVR All 18+'
-    df['Reg. TVR All 18+'] = df['All 18+ Reg. TVR']
-    df['Reg. Stand. TVR All 18+'] = df['All 18+ Reg. Stand. TVR (20)']
+    df['Reg. TVR All 18+'] = df['All 18+ TVR']
+    df['Reg. Stand. TVR All 18+'] = df['All 18+ Stand. TVR (20)']
 
     # Cleaning and conversion
     df['Округление'] = df['Округление'].apply(lambda x: str(x).replace(',', '.').strip()).astype('float64')
@@ -163,14 +164,14 @@ def main() -> None:
     df['Reg. GRP20/min'] = list(map(minutes, enumerate(df_list)))
 
     # List of columns to be removed
-    ba = ['All 18+ Reg. TVR', 'All 18+ Reg. Stand. TVR (20)', 'All 4-45 Reg. TVR', 'All 4-45 Reg. Stand. TVR (20)',
-          'All 6-54 Reg. TVR', 'All 6-54 Reg. Stand. TVR (20)', 'All 10-45 Reg. TVR', 'All 10-45 Reg. Stand. TVR (20)',
-          'All 11-34 Reg. TVR', 'All 11-34 Reg. Stand. TVR (20)', 'All 14-39 Reg. TVR', 'All 14-39 Reg. Stand. TVR (20)',
-          'All 14-44 Reg. TVR', 'All 14-44 Reg. Stand. TVR (20)', 'All 14-54 Reg. TVR', 'All 14-54 Reg. Stand. TVR (20)',
-          'All 14-59 Reg. TVR', 'All 14-59 Reg. Stand. TVR (20)', 'All 25-49 Reg. TVR', 'All 25-49 Reg. Stand. TVR (20)',
-          'All 25-54 Reg. TVR', 'All 25-54 Reg. Stand. TVR (20)', 'All 25-59 Reg. TVR', 'All 25-59 Reg. Stand. TVR (20)',
-          'W 14-44 Reg. TVR', 'W 14-44 Reg. Stand. TVR (20)', 'W 25-59 Reg. TVR', 'W 25-59 Reg. Stand. TVR (20)',
-          'M 18+ Reg. TVR', 'M 18+ Reg. Stand. TVR (20)']
+    ba = ['All 18+ TVR', 'All 18+ Stand. TVR (20)', 'All 4-45 TVR', 'All 4-45 Stand. TVR (20)',
+          'All 6-54 TVR', 'All 6-54 Stand. TVR (20)', 'All 10-45 TVR', 'All 10-45 Stand. TVR (20)',
+          'All 11-34 TVR', 'All 11-34 Stand. TVR (20)', 'All 14-39 TVR', 'All 14-39 Stand. TVR (20)',
+          'All 14-44 TVR', 'All 14-44 Stand. TVR (20)', 'All 14-54 TVR', 'All 14-54 Stand. TVR (20)',
+          'All 14-59 TVR', 'All 14-59 Stand. TVR (20)', 'All 25-49 TVR', 'All 25-49 Stand. TVR (20)',
+          'All 25-54 TVR', 'All 25-54 Stand. TVR (20)', 'All 25-59 TVR', 'All 25-59 Stand. TVR (20)',
+          'W 14-44 TVR', 'W 14-44 Stand. TVR (20)', 'W 25-59 TVR', 'W 25-59 Stand. TVR (20)',
+          'M 18+ TVR', 'M 18+ Stand. TVR (20)']
 
     del df['check Sales TVR']
 

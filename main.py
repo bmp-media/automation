@@ -39,11 +39,12 @@ def print_choice():
     print_slowly('4. Positioning\n\n')
     print_slowly('Основные выгрузки\n\n')
     print_slowly('5. Национальная выгрузка\n')
-    print_slowly('6. Региональная выгрузка\n\n')
-    print_slowly('7. Панель\n\n')
+    print_slowly('6. Региональная выгрузка\n')
+    print_slowly('7. Выгрузка Москва ООН\n\n')
+    print_slowly('8. Панель\n\n')
 
     print_slowly('Опционально\n\n')
-    print_slowly('8. Сравнение Excel файлов\n\n')
+    print_slowly('9. Сравнение Excel файлов\n\n')
     print_slowly('0. Выход\n')
 
 
@@ -61,8 +62,9 @@ def main():
         '4': 'positioning.py',
         '5': 'national.py',
         '6': 'regional.py',
-        '7': 'panel.py',
-        '8': 'excel.py',
+        '7': 'regional moscow.py',
+        '8': 'panel.py',
+        '9': 'excel.py',
     }
 
     print_menu()
