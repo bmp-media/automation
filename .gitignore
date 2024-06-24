@@ -1,0 +1,50 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyz
+*.pyw
+*.pyi
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.pyc
+*.pyo
+*.pyd
+*.pyz
+*.pyw
+*.pyi
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Compiled files
+*.dll
+*.exe
+*.pyc
+*.pyo
+*.pyd
+
+# Miscellaneous
+*.bak
+*.swp
