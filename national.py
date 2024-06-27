@@ -18,9 +18,14 @@ def main() -> None:
     df.dropna(axis='columns', how='all', inplace=True)
 
     # Избавляет от NaN в первых трех строках
-    df.iloc[0] = df.iloc[0].apply(lambda x: '' if x == 'Consolidated' else x)
-    df.iloc[1] = df.iloc[1].apply(lambda x: '' if x is np.NAN else x)
-    df.iloc[2] = df.iloc[2].apply(lambda x: '' if x is np.NAN else x)
+    try:
+        df.iloc[0] = df.iloc[0].apply(lambda x: '' if x == 'Consolidated' else x)
+        df.iloc[1] = df.iloc[1].apply(lambda x: '' if x is np.NAN else x)
+        df.iloc[2] = df.iloc[2].apply(lambda x: '' if x is np.NAN else x)
+    except:
+        df.iloc[0] = df.iloc[0].apply(lambda x: '' if x == 'Consolidated' else x)
+        df.iloc[1] = df.iloc[1].apply(lambda x: '' if x is np.nan else x)
+        df.iloc[2] = df.iloc[2].apply(lambda x: '' if x is np.nan else x)
 
     # Конкатенирует строки в заголовок
     header = [str(i + j).strip() for i, j in zip(df.iloc[0], (df.iloc[1] + ' ' + df.iloc[2]))]
