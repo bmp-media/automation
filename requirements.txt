@@ -1,3 +1,4 @@
 pandas
 openpyxl
 colorama
+mediascope-api-lib
