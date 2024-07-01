@@ -7,6 +7,7 @@ import datetime
 import time
 import pandas as pd
 import numpy as np
+from modules.paths import PathManager
 #from IPython.display import JSON
 
 from mediascope_api.core import net as mscore
@@ -33,6 +34,8 @@ pba = pd.read_excel(data['PBA'][0], sheet_name='свод', skiprows=1)
 global affinity_df
 affinity_df = pd.read_excel('O:\\BMP Media Audit\\Media Research\\Проекты\\Оценка планирования\\Скрипты\\2. Оценка аффинити\\Пул кампаний с аффинити.xlsx')
 global save_path
+print('Укажи директорию для сохранения:\n')
+save_path = PathManager.save_in_directory_dialog()
 #диалоговое окно
 
 pba = pba.rename(columns={'Клиент//Кампания': 'Кампания'})
