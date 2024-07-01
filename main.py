@@ -33,18 +33,15 @@ def print_menu():
 def print_choice():
     print()
     print_slowly('Дополнительные выгрузки:\n\n')
-    print_slowly('1. Affinity\n')
-    print_slowly('2. TVR\n')
-    print_slowly('3. Reach\n')
-    print_slowly('4. Positioning\n\n')
+    print_slowly('1. Выгрузки через API\n')
+    print_slowly('2. Reach\n')
     print_slowly('Основные выгрузки\n\n')
-    print_slowly('5. Национальная выгрузка\n')
-    print_slowly('6. Региональная выгрузка\n')
-    print_slowly('7. Выгрузка Москва ООН\n\n')
-    print_slowly('8. Панель\n\n')
+    print_slowly('3. Национальная выгрузка\n')
+    print_slowly('4. Региональная выгрузка\n')
+    print_slowly('5. Выгрузка Москва ООН\n\n')
 
     print_slowly('Опционально\n\n')
-    print_slowly('9. Сравнение Excel файлов\n\n')
+    print_slowly('6. Сравнение Excel файлов\n\n')
     print_slowly('0. Выход\n')
 
 
@@ -56,15 +53,12 @@ def print_instructions():
 def main():
 
     scripts = {
-        '1': 'affinity.py',
-        '2': 'tvr.py',
-        '3': 'reach.py',
-        '4': 'positioning.py',
-        '5': 'national.py',
-        '6': 'regional.py',
-        '7': 'regional moscow.py',
-        '8': 'panel.py',
-        '9': 'excel.py',
+        '1': 'api.py',
+        '2': 'reach.py',
+        '3': 'national.py',
+        '4': 'regional.py',
+        '5': 'regional moscow.py',
+        '6': 'excel.py',
     }
 
     print_menu()

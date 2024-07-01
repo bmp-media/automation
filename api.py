@@ -32,6 +32,8 @@ global pba
 pba = pd.read_excel(data['PBA'][0], sheet_name='свод', skiprows=1)
 global affinity_df
 affinity_df = pd.read_excel('O:\\BMP Media Audit\\Media Research\\Проекты\\Оценка планирования\\Скрипты\\2. Оценка аффинити\\Пул кампаний с аффинити.xlsx')
+global save_path
+#диалоговое окно
 
 pba = pba.rename(columns={'Клиент//Кампания': 'Кампания'})
 data['Дата_старта'] = pd.to_datetime(data['Дата_старта']).dt.date
@@ -257,7 +259,7 @@ def score_affinity(row):
 
     name = camp.replace('//', ' ')
     name = name.replace(':', '')
-    with pd.ExcelWriter(str(name)+' Аффинити.xlsx', engine='openpyxl') as writer:
+    with pd.ExcelWriter(save_path+str(name)+' Аффинити.xlsx', engine='openpyxl') as writer:
         score.to_excel(writer, sheet_name='Оценка аффинити', index=False)
         split.to_excel(writer, sheet_name='Эффективность сплита', index=False)
         affinity.to_excel(writer, sheet_name='Аффинитивность сплита', index=False)
@@ -347,7 +349,7 @@ def sfix(row):
         
     name = camp.replace('//', ' ')
     name = name.replace(':', ' ')
-    with pd.ExcelWriter(str(name)+' Окупаемость SuperFix.xlsx', engine='openpyxl') as writer:
+    with pd.ExcelWriter(save_path+str(name)+' Окупаемость SuperFix.xlsx', engine='openpyxl') as writer:
         index_final.to_excel(writer, sheet_name='Индекс окупаемости SuperFix', index=False)
         index_affinity.to_excel(writer, sheet_name='Индекс аффинити', index=False)
         index_prime_time.to_excel(writer, sheet_name='Индекс prime off prime', index=False)
@@ -379,7 +381,7 @@ def night(row):
 
     name = camp.replace('//', ' ')
     name = name.replace(':', ' ')
-    total_tvr.to_excel(str(name)+' Доля ночных выходов.xlsx', index=False)
+    total_tvr.to_excel(save_path+str(name)+' Доля ночных выходов.xlsx', index=False)
 
     return 'Расчёты готовы'
 
@@ -412,7 +414,7 @@ def double_spot(row):
 
     name = camp.replace('//', ' ')
     name = name.replace(':', ' ')
-    total_tvr.to_excel(str(name)+' Доля двойных выходов.xlsx', index=False)
+    total_tvr.to_excel(save_path+str(name)+' Доля двойных выходов.xlsx', index=False)
 
     return 'Расчёты готовы'
 
@@ -443,7 +445,7 @@ def premium(row):
     
     name = camp.replace('//', ' ')
     name = name.replace(':', ' ')
-    premium.to_excel(str(name)+' Позиционирование.xlsx', index=False)
+    premium.to_excel(save_path+str(name)+' Позиционирование.xlsx', index=False)
 
     return 'Расчёты готовы'
 
@@ -458,7 +460,7 @@ def print_choice():
     print('2. Окупаемость суперфикса\n')
     print('3. Доля ночных выходов\n')
     print('4. Доля двойных выходов\n')
-    print('5. Позиционирование\n')
+    print('5. Позиционирование\n\n')
 
 def print_instructions():
     print('\nВведите номер скрипта, который вы хотите запустить.\n')
@@ -469,22 +471,22 @@ print_choice()
 print_instructions()
 
 while True:
-    print('\nВведите номер скрипта: ')
+    print('\nВведите номер скрипта (или несколько номеров без пробелов): ')
     choice = input()
 
-    if int(choice) == 1:
-        data.apply(score_affinity, axis=1)  
-    elif int(choice) == 2:
-        data.apply(sfix, axis=1)
-    elif int(choice) == 3:
-        data.apply(night, axis=1)
-    elif int(choice) == 4:
-        data.apply(double_spot, axis=1)
-    elif int(choice) == 5:
-        data.apply(premium, axis=1)
-
-    elif int(choice) == 0:
-        break
+    for i in choice:
+        if int(i) == 1:
+            data.apply(score_affinity, axis=1)  
+        elif int(i) == 2:
+            data.apply(sfix, axis=1)
+        elif int(i) == 3:
+            data.apply(night, axis=1)
+        elif int(i) == 4:
+            data.apply(double_spot, axis=1)
+        elif int(i) == 5:
+            data.apply(premium, axis=1)
+        elif int(i) == 0:
+            break
     else:
-        print_slowly('\nНеверный ввод. Пожалуйста, выберите номер из меню.\n')
+        print('\nНеверный ввод. Пожалуйста, выберите номер из меню.\n')
         print_choice()
