@@ -24,3 +24,10 @@ class PathManager:
         root.withdraw()
         file_path = filedialog.asksaveasfilename(defaultextension='.xlsx')
         return file_path
+
+    @staticmethod
+    def save_in_directory_dialog():
+        root = tk.Tk()
+        root.withdraw()
+        file_path = filedialog.askdirectory()
+        return file_path
